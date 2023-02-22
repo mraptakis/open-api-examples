@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+    title: Smoke Detector
+    version: 0.1.0
+    description: |
+        An OpenAPI specification for a smoke detector
+servers:
+    - url: http://localhost:9001
+paths:
+    /value:
+        get:
+            summary: Get current smoke detection value
+            operationId: getValue
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    value:
+                                        type: number
+                                        minimum: 0
+                                        maximum: 100
+                                        description: Smoke detector's value
+                                    timestamp:
+                                        type: string
+                                        description: Current timestamp
+    /sensitivity:
+        put:
+            summary: Sets the smoke detector's sensitivity
+            operationId: setSensitivity
+            responses:
+                '204':
+                    description: No Content
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    msg:
+                                        type: string
+                                        description: Info message
+                                    timestamp:
+                                        type: string
+                                        description: Current timestamp
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            additionalProperties: false
+                            properties:
+                                sensitivity:
+                                    type: string
+                                    enum:
+                                        - Low
+                                        - Medium
+                                        - High
+    /enable:
+        put:
+            summary: Enables/disables the smoke detector
+            operationId: setEnable
+            responses:
+                '204':
+                    description: No Content
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    msg:
+                                        type: string
+                                        description: Info message
+                                    timestamp:
+                                        type: string
+                                        description: Current timestamp
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                enable:
+                                    type: string
+                                    enum:
+                                        - Enable
+                                        - Disable
+    /status:
+        get:
+            summary: Gets the detector's status
+            operationId: queryStatus
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    detector:
+                                        type: object
+                                        properties:
+                                            value:
+                                                type: number
+                                                minimum: 0
+                                                maximum: 100
+                                                description: Smoke detector's value
+                                            isEnable:
+                                                type: string
+                                                enum:
+                                                    - Enable
+                                                    - Disable
+                                            sensitivity:
+                                                type: string
+                                                enum:
+                                                    - Low
+                                                    - Medium
+                                                    - High
+                                    timestamp:
+                                        type: string
+                                        description: Current timestamp

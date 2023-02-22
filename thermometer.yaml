@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+    title: Thermometer
+    version: 0.1.0
+    description: |
+        An OpenAPI specification for a thermometer
+servers:
+    - url: http://localhost:9002
+paths:
+    /value:
+        get:
+            summary: Get current Temperature
+            operationId: getValue
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    value:
+                                        type: number
+                                        minimum: -50
+                                        maximum: 50
+                                        description: Temperature value
+                                    timestamp:
+                                        type: string
+                                        description: Current timestamp
