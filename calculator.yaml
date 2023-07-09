@@ -1,110 +1,146 @@
 openapi: '3.0.2'
 info:
-  title: Calculator Service
-  version: '1.0'
+    title: Calculator
+    version: '1.0'
+servers:
+    - url: http://localhost:9000
 paths:
-  /history:
-    get:
-      description: Retrives all the operations
-      operationId: getHistory
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/History'
-  /add:
-    get:
-      description: Adds two numbers
-      operationId: add
-      parameters: 
-        - $ref: '#/components/parameters/firstParam'
-        - $ref: '#/components/parameters/secondParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/SuccessfullOp'
-  /subtract:
-    get:
-      description: Subtracts two numbers
-      operationId: subtract
-      parameters: 
-        - $ref: '#/components/parameters/firstParam'
-        - $ref: '#/components/parameters/secondParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/SuccessfullOp'
-  /multiply:
-    get:
-      description: Multiplies two numbers
-      operationId: multiply
-      parameters: 
-        - $ref: '#/components/parameters/firstParam'
-        - $ref: '#/components/parameters/secondParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/SuccessfullOp'
-  /divide:
-    get:
-      description: Divedes two numbers
-      operationId: divide
-      parameters: 
-        - $ref: '#/components/parameters/firstParam'
-        - $ref: '#/components/parameters/secondParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/SuccessfullOp'
-        '400':
-          description: Bad Request
-  /module:
-    get:
-      description: Calculates the module of two numbers
-      operationId: module
-      parameters: 
-        - $ref: '#/components/parameters/firstParam'
-        - $ref: '#/components/parameters/secondParam'
-      responses:
-        '200':
-          $ref: '#/components/responses/SuccessfullOp'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-components:
-  schemas:
-    History:
-      type: array
-      items:
-        type: object
-        properties:
-          operation:
-            type: string
-          args:
-            type: object
-            properties:
-              first:
-                type: number
-              second:
-                type: number
-          result:
-            type: number
-  parameters:
-    firstParam:
-      in: query
-      name: first
-      description: First argument
-      schema:
-        type: number
-    secondParam:
-      in: query
-      name: second
-      description: Second argument
-      schema:
-        type: number
-  responses:
-    BadRequest:
-      description: Bad Request
-    SuccessfullOp:
-      description: OK
-      content:
-        application/json:
-          schema:
-            type: number
+    /history:
+        get:
+            description: Retrieves all the operations
+            operationId: getHistory
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        operation:
+                                            type: string
+                                        args:
+                                            type: object
+                                            properties:
+                                                first:
+                                                    type: number
+                                                second:
+                                                    type: number
+                                        result:
+                                            type: number
+    /add:
+        get:
+            description: Adds two numbers
+            operationId: add
+            parameters:
+                - in: query
+                  name: first
+                  description: First argument
+                  schema:
+                      type: number
+                - in: query
+                  name: second
+                  description: Second argument
+                  schema:
+                      type: number
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: number
+    /subtract:
+        get:
+            description: Subtracts two numbers
+            operationId: subtract
+            parameters:
+                - in: query
+                  name: first
+                  description: First argument
+                  schema:
+                      type: number
+                - in: query
+                  name: second
+                  description: Second argument
+                  schema:
+                      type: number
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: number
+    /multiply:
+        get:
+            description: Multiplies two numbers
+            operationId: multiply
+            parameters:
+                - in: query
+                  name: first
+                  description: First argument
+                  schema:
+                      type: number
+                - in: query
+                  name: second
+                  description: Second argument
+                  schema:
+                      type: number
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: number
+    /divide:
+        get:
+            description: Divedes two numbers
+            operationId: divide
+            parameters:
+                - in: query
+                  name: first
+                  description: First argument
+                  schema:
+                      type: number
+                - in: query
+                  name: second
+                  description: Second argument
+                  schema:
+                      type: number
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: number
+                '400':
+                    description: Bad Request
+    /modulo:
+        get:
+            description: Calculates the modulo of two numbers
+            operationId: modulo
+            parameters:
+                - in: query
+                  name: first
+                  description: First argument
+                  schema:
+                      type: number
+                - in: query
+                  name: second
+                  description: Second argument
+                  schema:
+                      type: number
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: number
+                '400':
+                    description: Bad Request
